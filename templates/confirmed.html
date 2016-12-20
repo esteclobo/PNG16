@@ -1,11 +1,13 @@
 <!doctype html>
 <html>
   <head>
+    <link href="https://fonts.googleapis.com/css?family=Droid+Sans|Mirza|Montserrat|Oswald|Playfair+Display" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='styles/mainstyle.css') }}">
+  </head>
     <title>{{ vote }}</title>
   </head>
   <body>
-    <h1>Você votou {{ vote }}. Aguarde o professor.</h1>
-
+    <h2>Você votou em "{{ vote }}" <br> Aguarde o professor.</h2>
   </body>
 </html>
  

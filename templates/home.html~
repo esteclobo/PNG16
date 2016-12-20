@@ -12,7 +12,7 @@
     </h1>
     <form method="post">
       <div class="centered">
-	<br><br>EU SOU: {{ ue }}<br><br>
+	<br><br>EU SOU:<br><br>
 	<label for="senha"></label>
 	<button class="maior" type="submit" name="aluno">Aluno</button><br><br>
 	<button type="submit" name="professor">Professor</button>

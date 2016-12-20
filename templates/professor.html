@@ -2,8 +2,14 @@
 <html>
   <head>
     <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='styles/mainstyle.css') }}">
+    <link href="https://fonts.googleapis.com/css?family=Droid+Sans|Mirza|Montserrat|Oswald|Playfair+Display|Roboto" rel="stylesheet">
   </head>
-  <body>
-    <h1>Professor<h1>
+  <body><br><br><br><br><br><br>
+    <h1 class="header">Insira o código</h1> <br><br>
+	<form method="POST" class="centered">
+	  <input type="text" name="codigo" placeholder="Código" style="width:20%; font-size: 200%">
+	  <input type="submit" value="">
+	</form><br>
+	<p class="centered" style="color:red; font-family:Arial; text-align: center" >{{ status }}</p>
   </body>
 </html>

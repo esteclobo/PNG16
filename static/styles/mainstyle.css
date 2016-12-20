@@ -12,6 +12,22 @@ h1 {
     width: 50%;
 }
 
+input {
+    border: 0px;
+    margin: auto;
+    max-width:5ch;
+}
+
+.header{
+    font-weight: normal;
+    font-family: 'Roboto', sans-serif;
+    color: #222222;
+    font-size: 500%;
+    text-align: center;
+    margin: auto;
+    width: 50%;
+}
+
 .wait {
     font-size: 400%;
     text-align: center;
@@ -49,6 +65,11 @@ button {
     padding: 5px;
 }
 
+.vermelho {
+    color: red;
+    font-size: 100%;
+}
+	       
 .maior {
     font-size: 300%;
 

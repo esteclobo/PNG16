@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='styles/mainstyle.css') }}">
+  </head>
+  <body>
+    <div class="questao">{{ questao }} </div> <br>
+    <div class="centered"><br><br><br>
+    {% for resposta in  respostas %}
+    <button  type="submit">- {{loop.index}} {{ resposta }}</button><br><br>
+    {% endfor %}
+    </div>
+  </body>
+</html>

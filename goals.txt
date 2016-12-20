@@ -1,0 +1,9 @@
+1-Usuário entra pelo celular no site local, com uma senha definida aleatoriamente;
+2-A partir do meu comando, aparecem opções de votação pre-definidas por um arquivo txt;
+3-Usuários podem votar e eu vou sendo atualizado com os votos computados;
+4-Com meu comando, aparece um gráfico pizza com as respostas votadas;
+5-Pessoas conversam e, com meu comando, a mesma votação aparece;
+6-A nova pizza aparece e, em seguida, a resposta certa.
+7-blank page
+
+2-7 all over again

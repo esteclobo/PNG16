@@ -1,0 +1,11 @@
+Qual a cor do céu?
+//
+roxo;;rosa;;amarelo;;vermelho;;azul;;_violeta
+$$
+O computador, dispositivo inventado talvez por alan turing durante a segunda guerra mundial, é:
+//
+foda;;magnífico;;_burro;;fantástico;;inútil
+$$
+O sentido da vida é:
+//
+_42;;ser feliz;;molibidênio

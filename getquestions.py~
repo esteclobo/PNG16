@@ -1,0 +1,3 @@
+with open('questoes.txt') as q:
+    txt=q.read()
+    questos=txt.split(

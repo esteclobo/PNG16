@@ -1,0 +1,7 @@
+@app.route('/')
+def hello():
+    return "<html><head><title>Flask</title><h1>EITA CARALHO</h1></head></html>"
+
+@app.route('/sobre')
+def sobre():
+    return "about"

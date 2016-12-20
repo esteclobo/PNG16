@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link href="https://fonts.googleapis.com/css?family=Droid+Sans|Mirza|Montserrat|Oswald|Playfair+Display" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='styles/mainstyle.css') }}">
+  </head>
+  <body><br>
+    <div class="questao"> {{ questao }} </div>
+    <div class="centered" style="width:90%"><br><br><br>
+      {% for resposta in  respostas %}
+      <form method="post" action="/poll">
+	<input name="opcao" value="{{ resposta }}" type="radio">{{ resposta }}<br><br>
+      </form>
+      {% endfor %}
+      <input type="submit" value="Confirmar"/>
+      <p>{{ valor }}</p>
+    </div>
+  </body>
+</html>

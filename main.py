@@ -57,30 +57,28 @@ def professor ():
         pass
     return render_template('professor.html')
 
-@app.route('/questao/<numero>', methods=['GET','POST'])
+@app.route('/questao/<numero>')
 
 def questao(numero):
     respostas=get_question(int(numero))[1]
+    
+    if numero == 'wait':
+        return render_template('wait.html')
+    else:
+        return render_template('questao.html', questao= get_question(int(numero))[0],respostas=respostas,)
+    
+        
 
-    if request.method == 'GET':
-        if numero == 'wait':
-            return render_template('wait.html')
-        else:
-            return render_template('questao.html', questao= get_question(int(numero))[0],respostas=respostas,valor =respostas)
-    elif request.method == 'POST':
-        check_lista = []
-        for resp in respostas:
-            voto = request.form[resp]
-            data.incr(resp + ':voto')
-            check_lista.append(str(data.get(resp + ':voto')))
-            valor = check_lista
-        return render_template('questao.html', questao= get_question(int(numero))[0],respostas=get_question(int(numero))[1],valor = valor)
+    
 
 
 
-@app.route('/user/<title>')
-def user(title):
-    pass
+@app.route('/confirmed')
+def confirmed():
+    vote = request.args.get('opcao')
+    with open('resultados.txt', 'a') as f:
+        f.write(vote + '\n')
+    return render_template("confirmed.html", vote=vote)
 
 
 ##

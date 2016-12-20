@@ -8,12 +8,11 @@
     <div class="questao"> {{ questao }} </div>
     <div class="centered" style="width:90%"><br><br><br>
       {% for resposta in  respostas %}
-      <form method="post" action="/poll">
+      <form  action="/confirmed">
 	<input name="opcao" value="{{ resposta }}" type="radio">{{ resposta }}<br><br>
-      </form>
       {% endfor %}
-      <input type="submit" value="Confirmar"/>
-      <p>{{ valor }}</p>
+	<input type="submit" value="Confirmar"/>
+      </form>
     </div>
   </body>
 </html>

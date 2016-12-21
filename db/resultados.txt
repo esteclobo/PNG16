@@ -22,3 +22,5 @@ c
 b
 _burro
 roxo
+vermelho
+foda

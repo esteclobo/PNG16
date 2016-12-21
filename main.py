@@ -16,9 +16,9 @@ print (password)
 
 #/#
 
-##FUNÇÃO QUE LÊ AS QUESTÕES:
+##FUNÇÕES DE DATABASE:
 def get_allquestions():
-    with open('questoes.txt') as q:
+    with open('db/questoes.txt') as q:
         txt=q.read()
         questoes=txt.replace('\n','').split('$$')
         listquests=[]
@@ -27,7 +27,7 @@ def get_allquestions():
         return listquests
 
 def get_question(n):
-    with open('questoes.txt') as q:
+    with open('db/questoes.txt') as q:
         txt=q.read()
         questoes=txt.replace('\n','').split('$$')
         listquests=[]
@@ -36,6 +36,24 @@ def get_question(n):
             listquests.append(item.split('//')[0])
             listresps.append(tuple(item.split('//')[1].split(';;')))
         return listquests[n], listresps[n]
+
+def next_question():
+    with open ('db/currentquest.txt', 'r+') as w:
+        current = int(w.readline())
+        w.seek(0)
+        w.truncate()
+        w.write(str(current + 1))
+def check_reset ():
+    with open('db/resetvotes.txt', 'r') as c:
+        if int(c.readline()):
+            session['votou'] = 0
+def make_reset ():
+    with open('db/resetvotes.txt', 'w') as w:
+        w.seek(0)
+        w.truncate()
+        w.write('1')
+            
+            
 #/#
 
 @app.before_request
@@ -43,7 +61,7 @@ def before_request():
     g.user = None
     if 'user' in session:
         g.user = session['user']
-
+    check_reset()
 
 @app.route('/', methods=['GET','POST'])
 def home():
@@ -56,7 +74,7 @@ def home():
                     pass
             except:
                 session['votou'] = 0
-            return render_template('wait.html', cu = request.remote_addr)
+            return redirect (url_for('questao'))
         return redirect(url_for('professor'))
     return render_template('home.html')
 
@@ -82,9 +100,10 @@ def professor ():
 @app.route('/admin', methods=['GET','POST'])
 def admin():
     if request.method == 'POST':
-        global n
-        n = request.form['opcao']
-        return redirect(url_for('questao', numero=n))
+        with open('db/currentquest.txt', 'w') as w:
+            w.truncate()
+            w.write(request.form['opcao'])
+        return redirect(url_for('questao'))
     else:
         if g.user == 'admin':
             session['votou'] = 0
@@ -93,29 +112,57 @@ def admin():
             return redirect(url_for('home'))
 
 
+
+@app.route('/questao', methods=['GET', 'POST'])
+def questao():
+    if request.method == 'POST':
+        if session['user'] == 'admin':
+            next_question()
+            make_reset()
+            return redirect('questao')
+        if session['votou']:
+            return render_template('wait.html')
+        return render_template('questao.html')
+    with open('db/currentquest.txt', 'r') as c:
+        numero = c.readline()
+    try:
+        respostas=get_question(int(numero))[1]
+    except IndexError:
+        return render_template('fim.html')
+    if session['votou'] :
+        return render_template('wait.html')
+    if session['user'] == 'admin':
+        return render_template('questaoprof.html', questao= get_question(int(numero))[0],respostas=respostas,)
+    return render_template('questao.html', questao= get_question(int(numero))[0],respostas=respostas,)
+
+"""
+
 @app.route('/questao/')
 def q():
     try:
-        return redirect(url_for('questao', numero=n))
+        return redirect(url_for('questao', numero=session['number']))
     except:
         return render_template('wait.html')
 
-@app.route('/questao/<numero>')
+@app.route('/questao/<numero>', methods=['GET', 'POST'])
 def questao(numero):
-    if numero == n:
+    print ('nmr',numero, 'sess',session['number'])
+    if numero == session['number']:
         respostas=get_question(int(numero))[1]
-        
         if session['votou'] :
             return render_template('wait.html')
         else:
-            if numero == 'wait':
-                return render_template('wait.html')
-            else:
-                return render_template('questao.html', questao= get_question(int(numero))[0],respostas=respostas,)
+            if session['user'] == 'admin':
+                if request.method == 'POST':
+                    session['number'] = int(session['number']) + 1
+                    print ('ennnnnnnnnnnneee ps', str(session['number']))
+                    return redirect(url_for('q'))
+                return render_template('questaoprof.html', questao= get_question(int(numero))[0],respostas=respostas,)
+            return render_template('questao.html', questao= get_question(int(numero))[0],respostas=respostas,)
     else:
-        render_template('wait.html')
+        return render_template('wait.html')
         
-
+"""
     
 
 
@@ -125,7 +172,7 @@ def confirmed():
     if not session['votou']:
         vote = request.args.get('opcao')
         session['votou'] = 1
-        with open('resultados.txt', 'a') as f:
+        with open('db/resultados.txt', 'a') as f:
             f.write(vote + '\n')
         return render_template("confirmed.html", vote=vote)
     else:

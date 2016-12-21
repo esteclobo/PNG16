@@ -1,1 +1,19 @@
-cu
+<!DOCTYPE html>
+<html>
+  <head>
+    <link href="https://fonts.googleapis.com/css?family=Droid+Sans|Mirza|Montserrat|Oswald|Playfair+Display" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='styles/mainstyle.css') }}">
+  </head>
+  <body><br>
+    <div class="questao"> {{ questao }} </div>
+    <div class="centered" style="width:90%"><br><br><br>
+      {% for quest in  quests %}
+      <form method="post">
+	<input name="opcao" value="{{ loop.index0 }}" type="radio">{{ quest }}{{ loop.index0 }}<br><br>
+      {% endfor %}
+	<input type="submit" value="Confirmar"/>
+      </form>
+    </div>
+  </body>
+</html>
+    

@@ -9,3 +9,8 @@ $$
 O sentido da vida é:
 //
 _42;;ser feliz;;molibidênio
+$$
+sdalkfjlkdasf:
+//
+a;;b;;c
+$$qual?//1;;2
